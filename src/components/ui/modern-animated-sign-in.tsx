@@ -566,7 +566,7 @@ interface AuthTabsProps {
     fields: Array<{
       label: string;
       required?: boolean;
-      type: string;
+      type: any;
       placeholder: string;
       onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     }>;

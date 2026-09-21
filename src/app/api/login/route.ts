@@ -54,13 +54,13 @@ export async function POST(req: Request) {
       if (!isSecure) {
         // UNHARDENED: SQLi Vulnerable
         const query = `SELECT * FROM users WHERE email = '${email}' AND password = '${password}'`;
-        database.get(query, async (err, row: any) => {
+        database.get(query, async (err: any, row: any) => {
           await handleResponse(err, row, email, isSecure, resolve, database);
         });
       } else {
         // HARDENED: Parameterized Query
         const query = `SELECT * FROM users WHERE email = ?`;
-        database.get(query, [email], async (err, row: any) => {
+        database.get(query, [email], async (err: any, row: any) => {
           if (err || !row) return await handleResponse(err, null, email, isSecure, resolve, database);
 
           const isValid = await bcrypt.compare(password, row.password_hash);
